@@ -170,24 +170,39 @@
 </head>
 <body>
 <!-- Header -->
-<header class="header">
-    <div class="logo">
-        <i class="fas fa-car"></i>
-        <span>RideWave</span>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">RideWave</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/" th:text="'Home'">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/searchRides" th:text="'Search Ride'">Search Ride</a>
+            </li>
+
+            <!-- Si l'utilisateur est connecté -->
+            <li class="nav-item" th:if="${loggedInUser != null}">
+                <a class="nav-link" href="/logout" th:text="'Logout'">Logout</a>
+            </li>
+
+            <li class="nav-item" th:if="${loggedInUser != null}">
+                <a class="nav-link" href="/showNewRideForm" th:text="'Publish Ride'">Publish Ride</a>
+            </li>
+
+            <!-- Si l'utilisateur n'est pas connecté -->
+            <li class="nav-item" th:if="${loggedInUser == null}">
+                <a class="nav-link" href="/loginn" th:text="'Log In'">Log In</a>
+            </li>
+            <li class="nav-item" th:if="${loggedInUser == null}">
+                <a class="nav-link" href="/register" th:text="'Register'">Register</a>
+            </li>
+        </ul>
     </div>
-    <nav>
-        <div class="search-bar">
-            <button onclick="location.href='/searchRides'">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-        <button class="btn" onclick="location.href='/showNewRideForm'" style="background-color: #02b3ba; padding: 5px 15px; border: none; border-radius: 5px; color: white; cursor: pointer;">
-            <span class="circle-icon"><i class="fas fa-plus"></i></span> Publish Ride
-        </button>
-        <a href="/loginn"><i class="fas fa-sign-in-alt"></i> Log In</a>
-        <a th:href="@{/showNewUserForm}"><i class="fas fa-user-plus"></i> Register</a>
-    </nav>
-</header>
+</nav>
 
 <!-- Main Banner -->
 <section class="main-banner">

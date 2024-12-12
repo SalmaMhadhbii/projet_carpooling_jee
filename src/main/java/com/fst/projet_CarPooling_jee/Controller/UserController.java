@@ -22,10 +22,10 @@ public class UserController {
 
     //display list of users
     @GetMapping("/")
-    public String viewHomePage(Model model) {
-        List<User> users = userService.getAllUsers(); // Récupérer la liste des utilisateurs depuis le service
-        model.addAttribute("listUsers", users); // Ajouter les utilisateurs au modèle
-        return "index";
+    public String viewHomePage(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        model.addAttribute("loggedInUser", loggedInUser); // Ajoute l'utilisateur connecté au modèle
+        return "index"; // Retourne la page d'accueil
     }
     @GetMapping("/showNewUserForm")
     public String showNewUserForm(Model model) {
