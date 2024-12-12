@@ -1,7 +1,6 @@
 package com.fst.projet_CarPooling_jee.Controller;
 
 import com.fst.projet_CarPooling_jee.Entity.Ride;
-import com.fst.projet_CarPooling_jee.Service.RideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RideController {
     @Autowired
-    private RideService rideService; /*ici on a utilisé
-    une interface non pas une classe RideServiceImpl
-    car si on utilose une classe on doit faire une instance
-    (new)à chaque execution en plus avec l'interface on
-    peut acceder à tous ses classes d'implementation*/
+    private com.fst.projet_CarPooling_jee.Service.impl.RideService rideService;
 
     //display list of ride
     @GetMapping("/searchRides") /*si un utilisateur accède

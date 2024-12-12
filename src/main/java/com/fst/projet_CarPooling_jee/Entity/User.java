@@ -5,6 +5,7 @@ package com.fst.projet_CarPooling_jee.Entity;
 //import Entity.enums.Role;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,18 +27,19 @@ public class User {
     //pas obligatoire
     //Un User peut avoir plusieurs Ride en tant que conducteur.
     //table ride
-    @OneToMany(mappedBy = "driver")
-    private List<Ride> rides;
+    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ride> rides= new ArrayList<>();
 
     //Un User peut avoir plusieurs Reservation en tant que passager.
     //table reservation
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Reservation> reservations;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations= new ArrayList<>();
 
-    @OneToMany(mappedBy = "reviewer")
-    private List<Review> reviewsGiven; // Liste des évaluations laissées par l'utilisateur
+    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviewsGiven= new ArrayList<>(); // Liste des évaluations laissées par l'utilisateur
+
     @OneToMany(mappedBy = "reviewee")
-    private List<Review> reviewsReceived; // Liste des évaluations reçues par l'utilisateur
+    private List<Review> reviewsReceived= new ArrayList<>(); // Liste des évaluations reçues par l'utilisateur
 
 
 

@@ -2,7 +2,6 @@ package com.fst.projet_CarPooling_jee.Controller;
 
 import com.fst.projet_CarPooling_jee.Entity.Reservation;
 import com.fst.projet_CarPooling_jee.Entity.enums.ReservationStatus;
-import com.fst.projet_CarPooling_jee.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservationController {
 
     @Autowired
-    private ReservationService reservationService;
+    private com.fst.projet_CarPooling_jee.Service.impl.ReservationService reservationService;
+
 
     // Affiche la liste des réservations
     @GetMapping("/reservations")
@@ -40,4 +40,6 @@ public class ReservationController {
         reservationService.updateReservationStatus(id, status);
         return "redirect:/reservations"; // Redirection après la mise à jour
     }
+
+
 }
