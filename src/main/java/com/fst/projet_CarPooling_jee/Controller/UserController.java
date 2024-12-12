@@ -36,26 +36,54 @@ public class UserController {
         return "new_user";
     }
 
+
+
+
     // Page de connexion (loginn)
     @GetMapping("/loginn")
     public String loginn() {
         return "loginn"; // Affiche la page de connexion
     }
 
+
+
     // Authentification de l'utilisateur
     @PostMapping("/loginn")
     public String authenticate(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
+        System.out.println("Email: " + email);  // Afficher l'email envoyé
+        System.out.println("Password: " + password);  // Afficher le mot de passe envoyé
+
         User user = userService.authenticate(email, password); // Authentifier l'utilisateur
+
         if (user != null) {
-            // Si l'utilisateur est authentifié, le stocker dans la session
+            System.out.println("User authenticated: " + user.getFirstName());
             session.setAttribute("loggedInUser", user); // Enregistrer l'utilisateur dans la session
-            return "redirect:/home"; // Redirige vers la page d'accueil
+            return "redirect:/"; // Rediriger vers la page d'accueil
         } else {
-            // Si l'authentification échoue
-            model.addAttribute("error", "Email ou mot de passe incorrect.");
-            return "loginn"; // Retourner à la page de connexion
+            System.out.println("Authentication failed.");
+            model.addAttribute("error", "Email or password incorrect.");
+            return "redirect:/loginn"; // Retourner à la page de connexion
         }
     }
+
+    @GetMapping("/profile")
+    public String showUserProfile(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            // Si aucun utilisateur n'est connecté, rediriger vers la page de connexion
+            return "redirect:/loginn";
+        }
+        model.addAttribute("user", loggedInUser);
+        return "profile";  // Page de profil de l'utilisateur
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();  // Invalide la session et supprime tous les attributs
+        return "redirect:/";  // Redirige vers la page d'accueil après la déconnexion
+    }
+
+
 
 
     // Afficher le formulaire d'inscription
