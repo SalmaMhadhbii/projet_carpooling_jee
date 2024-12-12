@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarPooling</title>
+    <link href="/css/bootstrapCSS/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #02b3ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 70px;
+            color: #f8f6f7;
+            height: 40px;
+            font-size: 20px;
+            font-family: "Times New Roman", Georgia, serif;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+        }
+
+        .header .logo i {
+            font-size: 30px;
+            margin-right: 10px;
+        }
+
+        .header nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header nav a {
+            color: #fdfbfc;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .header nav a:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .search-bar button {
+            background-color: #02b3ba;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .main-banner {
+            text-align: center;
+            padding: 100px 20px;
+            background: url('https://www.cc-paysdepontchateau.fr/medias/2022/04/Bannie%CC%80re-covoiturage.png') no-repeat center center/cover;
+            color: white;
+            height: 135px;
+        }
+
+        .main-banner h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .main-banner p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .main-banner button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #02b3ba;
+            color: white;
+            cursor: pointer;
+        }
+
+        .main-banner button:hover {
+            background-color: #02b3ba;
+        }
+
+        /* Content section styles */
+        .content-section {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .content-card {
+            flex: 1;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: scale(1.05);
+        }
+
+        .content-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .content-card p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .content-card button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #fba42e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .content-card button:hover {
+            background-color: #02b3ba;
+        }
+
+        .btn {
+            font-size: 20px;
+            font-family: "Times New Roman", Georgia, serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .circle-icon {
+            background-color: white;
+            color: #02b3ba;
+            border-radius: 50%;
+            padding: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="logo">
+        <i class="fas fa-car"></i>
+        <span>RideWave</span>
+    </div>
+    <nav>
+        <div class="search-bar">
+            <button onclick="location.href='/searchRides'">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <button class="btn" onclick="location.href='/showNewRideForm'" style="background-color: #02b3ba; padding: 5px 15px; border: none; border-radius: 5px; color: white; cursor: pointer;">
+            <span class="circle-icon"><i class="fas fa-plus"></i></span> Publish Ride
+        </button>
+        <a href="/loginn"><i class="fas fa-sign-in-alt"></i> Log In</a>
+        <a href="/showNewUserForm"><i class="fas fa-user-plus"></i> Sign Up</a>
+    </nav>
+</header>
+
+<!-- Main Banner -->
+<section class="main-banner">
+</section>
+
+<!-- Features Section -->
+<section class="content-section">
+    <div class="content-card">
+        <h3>Trust who you travel with</h3>
+        <p>Check reviews, profiles, and IDs to know who you’re traveling with.</p>
+        <button onclick="location.href='/AllUsers'">View Drivers</button>
+    </div>
+    <div class="content-card">
+        <h3>Scroll, click, tap and go!</h3>
+        <p>Book a ride in just a few clicks using our simple and secure platform.</p>
+        <button onclick="location.href='/searchRides'">Learn More</button>
+    </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="/js/bootstrapJS/bootstrap.bundle.min.js"></script>
+</body>
+</html>

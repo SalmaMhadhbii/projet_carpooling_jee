@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Rides</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Custom styles for light blue theme -->
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(150deg, #d5f7f4, #c4e2f5); /* Turquoise to blue gradient */
+            color: #333;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            border: 1px solid #add8e6; /* Light blue border */
+        }
+        .card-header {
+            background-color: #87cefa; /* Sky blue */
+            color: white;
+        }
+        .btn-primary {
+            background-color: #4682b4; /* Steel blue */
+            border-color: #4682b4;
+        }
+        .sort-section {
+            background-color: #ffffff;
+            border: 1px solid #add8e6;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%; /* Full width inside the column */
+        }
+        .sort-section h5 {
+            margin-bottom: 10px;
+            color: #4682b4;
+        }
+        .sort-options label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .sort-options input {
+            margin-right: 10px;
+        }
+        .content-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .sort-column {
+            flex: 0 0 25%; /* Left column width: 25% */
+            max-width: 25%;
+            padding-right: 15px;
+        }
+        .results-column {
+            flex: 0 0 75%; /* Right column width: 75% */
+            max-width: 75%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">CarPooling</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/searchRides">Search Rides</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/showNewRideForm">Add Ride</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="text-center">Where do you want to go?</h1>
+
+    <!-- Search Form -->
+    <form th:action="@{/searchRides}" method="get" class="row g-3 justify-content-center">
+        <div class="col-md-2">
+            <label for="startLocation" class="form-label">Start Location</label>
+            <input type="text" class="form-control" id="startLocation" name="startLocation" placeholder="Enter departure location">
+        </div>
+        <div class="col-md-2">
+            <label for="endLocation" class="form-label">End Location</label>
+            <input type="text" class="form-control" id="endLocation" name="endLocation" placeholder="Enter destination">
+        </div>
+        <div class="col-md-2">
+            <label for="departureDate" class="form-label">Departure Date</label>
+            <input type="date" class="form-control" id="departureDate" name="departureDate">
+        </div>
+        <div class="col-md-2">
+            <label for="nbPassengers" class="form-label">Passengers</label>
+            <input type="number" class="form-control" id="nbPassengers" name="nbPassengers" placeholder="enter number of passengers">
+        </div>
+        <!--<div class="col-md-2">
+          <label for="driver" class="form-label">Driver (optional)</label>
+          <input type="text" class="form-control" id="driver" name="driver" placeholder="Driver's name">
+        </div>-->
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    <!-- Content Row -->
+    <div class="content-row mt-5">
+        <!-- Sort By Section (Left) -->
+        <div class="sort-column ">
+            <div class="sort-section">
+                <h5>Sort by</h5>
+                <form method="get" class="sort-options">
+                    <label>
+                        <input type="radio" name="sort" value="ascendingPrice" th:checked="${sort == 'ascendingPrice'}">
+                        <span>Ascending price</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="sort" value="descendingPrice" th:checked="${sort == 'descendingPrice'}">
+                        <span>Descending price</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="sort" value="earliestDeparture" th:checked="${sort == 'earliestDeparture'}">
+                        <span>Earliest departure</span>
+                    </label>
+                    <button type="submit" class="btn btn-primary btn-sm mt-3">Apply</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ride Results (Right) -->
+        <div class="results-column">
+
+            <div class="row">
+                <!-- Loop through rides -->
+                <div class="col-md-4 mb-4" th:each="ride : ${listRides}">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title" th:text="${ride.startLocation} + ' to ' + ${ride.endLocation}"></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>Departure Time:</strong> <span th:text="${ride.departureTime}"></span><br>
+                                <strong>Available Seats:</strong> <span th:text="${ride.availableSeats}"></span><br>
+                                <strong>Price per Seat:</strong> <span th:text="${ride.pricePerSeat}"></span><br>
+                                <strong>Driver:</strong> <span th:text="${ride.driver.firstName}"></span>
+                            </p>
+                            <a href="#" class="btn btn-primary">Reserve Ride</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Message if no rides found -->
+                <div th:if="${listRides.isEmpty()}" class="col-12">
+                    <div class="alert alert-info text-center" role="alert">
+                        No rides found
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
