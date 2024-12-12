@@ -145,15 +145,27 @@
         <div class="results-column">
 
             <div class="row">
-                <!-- Loop through rides -->
-                <div class="col-md-4 mb-4" th:each="ride : ${listRides}">
+                <!-- Cas 1 : Aucun message au chargement initial -->
+                <div th:if="${searchPerformed == false}" class="col-12">
+                    <!-- Pas de contenu ici, affichage vide -->
+                </div>
+
+                <!-- Cas 2 : Aucun trajet trouvé -->
+                <div th:if="${searchPerformed == true and (listRides == null or listRides.isEmpty())}" class="col-12">
+                    <div class="alert alert-info text-center" role="alert">
+                        No rides found for your search. Please try again.
+                    </div>
+                </div>
+
+                <!-- Cas 3 : Affichage des trajets -->
+                <div th:if="${listRides != null and !listRides.isEmpty()}" class="col-md-4 mb-4" th:each="ride : ${listRides}">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title" th:text="${ride.startLocation} + ' to ' + ${ride.endLocation}"></h5>
                         </div>
                         <div class="card-body">
                             <p class="card-text">
-                                <strong>Departure Time:</strong> <span th:text="${ride.departureTime}"></span><br>
+                                <strong>Departure Time:</strong> <span th:text="${ride.departureDate}"></span><br>
                                 <strong>Available Seats:</strong> <span th:text="${ride.availableSeats}"></span><br>
                                 <strong>Price per Seat:</strong> <span th:text="${ride.pricePerSeat}"></span><br>
                                 <strong>Driver:</strong> <span th:text="${ride.driver.firstName}"></span>
@@ -162,12 +174,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Message if no rides found -->
-                <div th:if="${listRides.isEmpty()}" class="col-12">
-                    <div class="alert alert-info text-center" role="alert">
-                        No rides found
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

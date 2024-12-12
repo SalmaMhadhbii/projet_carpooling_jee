@@ -1,9 +1,8 @@
 package com.fst.projet_CarPooling_jee.Entity;
 
-import com.fst.projet_CarPooling_jee.Entity.enums.ReservationStatus;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -15,7 +14,7 @@ public class Ride {
 
     private String startLocation;
     private String endLocation;
-    private LocalDateTime departureTime;
+    private Date departureDate;
     private int availableSeats;
     private double pricePerSeat;
 
@@ -51,12 +50,12 @@ public class Ride {
         this.endLocation = endLocation;
     }
 
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
     public int getAvailableSeats() {
