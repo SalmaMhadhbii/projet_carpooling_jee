@@ -25,9 +25,6 @@ public class UserService  {
         this.userRepository.save(user);
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email); // Chercher l'utilisateur par email
-    }
 
 
     // Authentifier l'utilisateur avec son email et son mot de passe

@@ -58,6 +58,7 @@ public class UserController {
         if (user != null) {
             System.out.println("User authenticated: " + user.getFirstName());
             session.setAttribute("loggedInUser", user); // Enregistrer l'utilisateur dans la session
+            session.setAttribute("loggedInUserId", user.getId());
             return "redirect:/"; // Rediriger vers la page d'accueil
         } else {
             System.out.println("Authentication failed.");

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Ride Form</title>
-    <!-- Bootstrap CSS -->
-    <link href="/css/bootstrapCSS/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -87,7 +85,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
+    <div class="container">
         <a class="navbar-brand text-white" href="#"><i class="fas fa-car-side"></i> CarPooling</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -104,6 +102,38 @@
                     <a class="nav-link active" href="/showNewRideForm"><i class="fas fa-plus icon"></i> Add Ride</a>
                 </li>
             </ul>
+
+            <!-- if the user is authenticated we will display this ul element -->
+            <ul class="navbar-nav me-3"  >
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button">Login</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-itm" href="/Profile">Profile</a></li>
+                        <li><a class="dropdown-itm" href="/">Home</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form   method="post" action="/logout">
+                <input type="hidden" />
+                <button type="submit" class="btn btn-danger">
+                    logout
+                </button>
+            </form>
+
+            <!--if the user is authenticated we won't dispal this ul element -->
+            <ul >
+                <li class="nav-item">
+                    <a class="nav-link" href="/loginn">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+            </ul>
+
+
+
+
         </div>
     </div>
 </nav>
@@ -121,11 +151,11 @@
                 <input type="text" th:field="*{endLocation}" id="endLocation" class="form-control" placeholder="Enter end location" required>
             </div>
             <div class="mb-3">
-                <label for="departureTime" class="form-label"><i class="fas fa-clock icon"></i> Departure Time</label>
-                <input type="datetime-local" th:field="*{departureTime}" id="departureTime" class="form-control" required>
+                <label for="departureDate" class="form-label"><i class="fas fa-clock icon"></i> Departure Date</label>
+                <input type="date" th:field="*{departureDate}" id="departureDate" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="availableSeats" class="form-label"><i class="fas fa-users icon"></i> Available Seats</label>
+                <label for="availableSeats" class="form-label"><i class="fas fa-userEntities icon"></i> Available Seats</label>
                 <input type="number" th:field="*{availableSeats}" id="availableSeats" class="form-control" placeholder="Enter number of available seats" required>
             </div>
             <div class="mb-3">
