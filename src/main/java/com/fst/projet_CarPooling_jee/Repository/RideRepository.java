@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RideRepository extends JpaRepository<Ride, Long> {
@@ -24,6 +25,11 @@ public interface RideRepository extends JpaRepository<Ride, Long> {
     // Find rides based on startLocation and endLocation
     List<Ride> findByStartLocationContainingAndEndLocationContaining(
             String startLocation, String endLocation);
+
+
+
+    List<Ride> findByDriverId(Long driverId);
+
 
 
 }

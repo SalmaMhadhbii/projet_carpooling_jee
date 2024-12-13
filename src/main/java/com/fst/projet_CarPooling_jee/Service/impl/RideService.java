@@ -41,4 +41,11 @@ public class RideService {
                     startLocation, endLocation);
         }
     }
+
+    public List<Ride> findRidesByDriverId(Long driverId) {
+        return rideRepository.findByDriverId(driverId);
+    }
+
+
+
 }

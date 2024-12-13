@@ -20,6 +20,13 @@ public class UserController {
     @Autowired
     private com.fst.projet_CarPooling_jee.Service.impl.UserService userService;
 
+
+    @ModelAttribute("loggedInUser")
+    public User getLoggedInUser(HttpSession session) {
+        return (User) session.getAttribute("loggedInUser");
+    }
+
+
     //display list of users
     @GetMapping("/")
     public String viewHomePage(Model model, HttpSession session) {

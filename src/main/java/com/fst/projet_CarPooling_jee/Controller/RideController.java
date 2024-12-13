@@ -26,6 +26,10 @@ public class RideController {
     @Autowired
     private UserRepository userRepository;
 
+
+
+
+
     @GetMapping("/showNewRidesForm")
     public String showNewRidesForm(Model model, HttpSession session){
         // Vérifier si l'utilisateur est connecté
@@ -40,6 +44,22 @@ public class RideController {
         //Thymleaf template will access the empty ride object for binding form data
         return "addRideForm";
     }
+
+    @GetMapping("/myRides")
+    public String myRides(Model model, HttpSession session) {
+        // Vérifier si l'utilisateur est connecté
+        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
+        if (loggedInUserId == null) {
+            return "redirect:/login"; // Rediriger vers la page de connexion si non connecté
+        }
+
+        // Récupérer les trajets créés par l'utilisateur
+        List<Ride> userRides = rideService.findRidesByDriverId(loggedInUserId);
+        model.addAttribute("userRides", userRides);
+
+        return "myRides"; // Vue Thymeleaf pour afficher les trajets
+    }
+
 
     // Save a new ride
     @PostMapping("/saveRide")
