@@ -18,45 +18,48 @@
             padding: 0;
         }
 
-        /* Header styles */
-        .header {
-            background-color: #02b3ba;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 70px;
-            color: #f8f6f7;
-            height: 40px;
-            font-size: 20px;
-            font-family: "Times New Roman", Georgia, serif;
+        /*navbar*/
+        .navbar {
+            background-color: #ffffff; /* Fond blanc pour la navbar */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère sous la navbar */
+            border-bottom: 1px solid #e0e0e0; /* Ligne fine et discrète sous la navbar */
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #00aaff; /* Bleu clair pour la marque */
+            font-size: 1.5rem;
         }
 
-        .header .logo {
-            display: flex;
-            align-items: center;
-            font-size: 30px;
+        .navbar-brand i {
+            color: #00aaff; /* Icône de la marque en bleu clair */
+            margin-right: 8px;
         }
 
-        .header .logo i {
-            font-size: 30px;
-            margin-right: 10px;
+        .navbar-nav .nav-link {
+            color: #333333; /* Texte des liens en gris foncé */
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: #00d1b2; /* Survol turquoise */
+            border-radius: 5px; /* Coins arrondis */
+            color: white; /* Texte en blanc au survol */
         }
 
-        .header nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+        .dropdown-menu {
+            background-color: #f8f9fa; /* Fond clair */
+            border: none; /* Retire la bordure */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
         }
 
-        .header nav a {
-            color: #fdfbfc;
-            text-decoration: none;
-            margin-left: 10px;
+        .dropdown-menu .nav-link {
+            color: #333;
+        }
+        .dropdown-menu .nav-link:hover {
+            background-color: #00aaff; /* Survol bleu clair */
+            color: white;
         }
 
-        .header nav a:hover {
-            text-decoration: underline;
-        }
 
         .search-bar {
             display: flex;
@@ -79,7 +82,7 @@
             padding: 100px 20px;
             background: url('https://www.cc-paysdepontchateau.fr/medias/2022/04/Bannie%CC%80re-covoiturage.png') no-repeat center center/cover;
             color: white;
-            height: 135px;
+            height: 350px;
         }
 
         .main-banner h1 {
@@ -173,51 +176,9 @@
     </style>
 </head>
 <body>
-<!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-info shadow-sm" style="font-family: 'Poppins', sans-serif;">
-    <a class="navbar-brand font-weight-bold" href="#">RideWave</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/" th:text="'Home'"><i class="fas fa-home"></i> Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/searchRides" th:text="'Search Ride'"><i class="fas fa-search"></i> Search Ride</a>
-            </li>
+<!-- Inclure la Navbar -->
+<div th:replace="~{fragments :: header}"></div>
 
-            <!-- Si l'utilisateur est connecté -->
-            <li class="nav-item" th:if="${loggedInUser != null}">
-                <a class="nav-link" href="/logout" th:text="'Logout'"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </li>
-
-            <li class="nav-item" th:if="${loggedInUser != null}">
-                <a class="nav-link" href="/showNewRidesForm" th:text="'Publish Ride'"><i class="fas fa-plus-circle"></i> Publish Ride</a>
-            </li>
-
-            <!-- Menu déroulant pour l'utilisateur connecté -->
-            <li class="nav-item dropdown" th:if="${loggedInUser != null}">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user"></i> Profile
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/profile" th:text="'View Profile'"><i class="fas fa-id-card"></i> View Profile</a>
-                    <a class="dropdown-item" href="/settings" th:text="'Settings'"><i class="fas fa-cogs"></i> Settings</a>
-                </div>
-            </li>
-
-            <!-- Si l'utilisateur n'est pas connecté -->
-            <li class="nav-item" th:if="${loggedInUser == null}">
-                <a class="nav-link" href="/loginn" th:text="'Log In'"><i class="fas fa-sign-in-alt"></i> Log In</a>
-            </li>
-            <li class="nav-item" th:if="${loggedInUser == null}">
-                <a class="nav-link" href="/register" th:text="'Register'"><i class="fas fa-user-plus"></i> Register</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 
 <!-- Main Banner -->
 <section class="main-banner">
